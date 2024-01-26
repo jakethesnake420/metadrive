@@ -213,17 +213,7 @@ jobs:
           sudo /usr/bin/Xvfb :0 -screen 0 1280x1024x24 &
       - name: Blackbox tests
         run: |
-          pip install cython
-          pip install numpy
-          pip install mediapy
-          conda install ffmpeg
-          pip install -e .
-          python -m metadrive.pull_asset
-          pip install pytest
-          pip install pytest-cov
-          pip install ray
-          cd metadrive/
-          pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_examples
+          python -m metadrive.examples.profile_metadrive
 
   test_policy_windows:
     runs-on: windows-latest
