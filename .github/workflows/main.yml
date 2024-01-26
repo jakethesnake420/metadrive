@@ -11,13 +11,13 @@ on:
 
 jobs:
   code_style:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Check code style
         run: |
           pip install "yapf==0.30.0"
@@ -25,13 +25,13 @@ jobs:
 
   code_docstring:
     if: github.event_name != 'push' || github.ref != 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Install software
         run: |
           sudo apt update && sudo apt install -y bc
@@ -75,13 +75,13 @@ jobs:
             })
 
   test_functionality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Blackbox tests
         run: |
           pip install cython
@@ -95,13 +95,13 @@ jobs:
           pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_functionality
 
   test_environment:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Blackbox tests
         run: |
           pip install cython
@@ -116,13 +116,13 @@ jobs:
           pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_env
 
   test_policy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Blackbox tests
         run: |
           pip install cython
@@ -136,13 +136,13 @@ jobs:
           pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_policy
 
   test_component:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Blackbox tests
         run: |
           pip install cython
@@ -156,13 +156,13 @@ jobs:
           pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_component
 
   test_export_record_scenario:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Blackbox tests
         run: |
           pip install cython
@@ -176,13 +176,13 @@ jobs:
           pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_export_record_scenario
 
   test_sensor_pipeline:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Prepare OpenGL
         run: |
           sudo apt-get -y install xvfb
@@ -200,13 +200,13 @@ jobs:
           pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_sensors/
 
   test_examples:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Prepare OpenGL
         run: |
           sudo apt-get -y install xvfb
@@ -229,10 +229,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Blackbox tests
         run: |
           pip install cython
@@ -246,13 +246,13 @@ jobs:
           pytest --cov=./ --cov-config=.coveragerc --cov-report=xml -sv tests/test_policy
 
   test_ipynb:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Prepare OpenGL
         run: |
           sudo apt-get -y install xvfb
@@ -273,13 +273,13 @@ jobs:
           TEST_IPYNB=1 pytest --nbmake -n=auto ./tests/test_ipynb/
 
   test_doc_code:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11
       - name: Prepare OpenGL
         run: |
           sudo apt-get -y install xvfb
