@@ -75,23 +75,28 @@ def pull_asset(update):
 
     # Download the file
     try:
+        import requests
+        import zipfile
+        from requests.exceptions import RequestException
         with lock:
             # Download assets
-            logger.info("Pull assets from {} to {}".format(ASSET_URL, zip_path))
-            extra_arg = [MyProgressBar()] if logger.level == logging.INFO else []
-            urllib.request.urlretrieve(ASSET_URL, zip_path, *extra_arg)
+            max_retries = 3
+            for _ in range(max_retries):
+                try:
+                    response = requests.get(ASSET_URL, stream=True, timeout=10)
+                    with open(zip_path, 'wb') as f:
+                        for chunk in response.iter_content(chunk_size=8192):
+                            f.write(chunk)
+                    break
+                except RequestException as e:
+                    print(f"Failed to download file: {e}")
+                    time.sleep(5)  # wait before retrying
+            else:
+                raise Exception("Failed to download file after multiple attempts")
 
-            # Prepare for extraction
-            if os.path.exists(assets_folder):
-                logger.info("Remove existing assets. Files: {}".format(os.listdir(assets_folder)))
-                shutil.rmtree(assets_folder, ignore_errors=True)
-            if os.path.exists(temp_assets_folder):
-                shutil.rmtree(temp_assets_folder, ignore_errors=True)
-
-            # Extract to temporary directory
-            logger.info("Extracting assets.")
-            shutil.unpack_archive(filename=zip_path, extract_dir=temp_assets_folder)
-            shutil.move(str(temp_assets_folder / 'assets'), str(ROOT_DIR))
+            with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                zip_ref.extractall(ROOT_DIR)
+            print("Successfully downloaded and extracted assets")
 
     except Timeout:  # Timeout will be raised if the lock can not be acquired in 1s.
         logger.info(
