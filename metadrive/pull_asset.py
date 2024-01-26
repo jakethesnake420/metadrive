@@ -55,6 +55,7 @@ def wait_asset_lock():
 
 def pull_asset(update):
     logger = get_logger()
+    
 
     assets_folder = ROOT_DIR / "assets"
     zip_path = ROOT_DIR / 'assets.zip'
